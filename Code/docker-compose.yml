@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+    worker:
+        # build: ./worker
+        # perhaps change to image later
+        image: "worker:latest"
+        environment:
+            - WORKER_ID="w{{.Task.Slot}}"
+        networks:
+            - workers
+        # depends_on:
+        deploy:
+            replicas: 3
+networks:
+    workers:
+        driver: overlay
